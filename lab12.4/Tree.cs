@@ -137,52 +137,103 @@ namespace lab12._4
             return this;
         }
 
-        public Tree<T> AddNode(T data) 
+        //public Tree<T> AddNode(T data) 
+        //{
+        //    Node<T> node = root;
+        //    Node<T> current = null;
+        //    bool isExist = false;
+
+        //    while(node != null && !isExist)
+        //    {
+        //        current = node;
+        //        if(node.Data.CompareTo(data) == 0)
+        //        {
+        //            isExist = true;
+        //        }
+        //        else
+        //        {
+        //            if (node.Data.CompareTo(data) < 0)
+        //            {
+        //                node = node.Left;
+        //            }
+        //            else
+        //            {
+        //                node = node.Right;
+        //            }
+        //        }
+        //    }
+
+        //    //есть место
+        //    if(isExist)
+        //    {
+        //        return null;
+        //    }
+        //    count++;
+        //    Node<T> newNode = new Node<T>(data);
+        //    if (current.Data.CompareTo(data) < 0)
+        //    {
+        //        current.Left = newNode;
+        //        return this;
+        //    }
+        //    else
+        //    {
+        //        current.Right = newNode;
+        //        return this;
+        //    }
+        //    //node = newNode;
+        //    //return this;
+        //}
+
+        public bool AddNode(T data)
         {
             Node<T> node = root;
-            Node<T> current = null;
-            bool isExist = false;
+            Node<T> parent = null;
 
-            while(node != null && !isExist)
+            while (node != null)
             {
-                current = node;
-                if(node.Data.CompareTo(data) == 0)
+                int comparisonResult = node.Data.CompareTo(data);
+                if (comparisonResult == 0)
                 {
-                    isExist = true;
+                    // Узел уже существует, нельзя добавить дубликат
+                    return false;
+                }
+                else if (comparisonResult < 0)
+                {
+                    parent = node;
+                    node = node.Right;
                 }
                 else
                 {
-                    if (node.Data.CompareTo(data) < 0)
-                    {
-                        node = node.Left;
-                    }
-                    else
-                    {
-                        node = node.Right;
-                    }
+                    parent = node;
+                    node = node.Left;
                 }
             }
 
-            //есть место
-            if(isExist)
-            {
-                return null;
-            }
-            count++;
+            // Создаем новый узел
             Node<T> newNode = new Node<T>(data);
-            if (current.Data.CompareTo(data) < 0)
+
+            // Если дерево пустое, новый узел становится корнем
+            if (root == null)
             {
-                current.Left = newNode;
-                return this;
+                root = newNode;
             }
             else
             {
-                current.Right = newNode;
-                return this;
+                // Вставляем новый узел на свое место
+                if (parent.Data.CompareTo(data) < 0)
+                {
+                    parent.Right = newNode;
+                }
+                else
+                {
+                    parent.Left = newNode;
+                }
             }
-            //node = newNode;
-            //return this;
+
+            count++;
+            return true;
         }
+
 
         public void Clear()
         {

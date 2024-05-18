@@ -23,7 +23,6 @@ namespace lab12._4
 
         public MyCollection(MyCollection<T> other) 
         {
-            //count = other.count;
             count = 0;
             id = new Id();
             root = new Node<T>((T)other.root.Data.Clone());
@@ -39,7 +38,7 @@ namespace lab12._4
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        private IEnumerable<T> InOrder(Node<T>? node)
+        public IEnumerable<T> InOrder(Node<T>? node)
         {
             if (node != null)
             {
