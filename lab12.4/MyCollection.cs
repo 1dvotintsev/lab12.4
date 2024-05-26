@@ -8,17 +8,25 @@ using System.Threading.Tasks;
 
 namespace lab12._4
 {
-    public class MyCollection<T> : Tree<T>, IEnumerable<T> where T : IInit, ICloneable, IComparable, new()
+    public class MyCollection<T> : Tree<T>, IEnumerable<T>, ICollection<T> where T : IInit, ICloneable, IComparable, new()
     {
         public static List<MyCollection<T>> collections = new List<MyCollection<T>>();
+
+        bool _isReadOnly;
+
+        public bool IsReadOnly => _isReadOnly;
+
+
         public MyCollection(): base() 
         {
             collections.Add(this);
+            _isReadOnly = false;
         }
              
         public MyCollection(int length) : base(length) 
         {
             collections.Add(this);
+            _isReadOnly = false;
         }
 
         public MyCollection(MyCollection<T> other) 
@@ -53,6 +61,41 @@ namespace lab12._4
                 {
                     yield return item;
                 }
+            }
+        }
+
+        public void Add(T item)
+        {
+            if (_isReadOnly)
+                throw new Exception("Коллекция только для чтения");
+            if (!AddNode(item))
+            {
+                throw new Exception("Элемент уже есть");
+            }
+        }
+
+        public bool Contains(T item)
+        {
+            if (Find(item) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            int current = 0;
+            T[] tempArray = new T[Count];
+            ToArray(root, tempArray, ref current);
+            int count = 0;
+            for(int i = arrayIndex; i < Count; i++)
+            {
+                array[count] = tempArray[i];
+                count++;
             }
         }
     }

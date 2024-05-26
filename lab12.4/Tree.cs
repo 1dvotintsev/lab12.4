@@ -109,7 +109,7 @@ namespace lab12._4
             
         }
 
-        void ToArray(Node<T>? node, T[] array, ref int current) 
+        public void ToArray(Node<T>? node, T[] array, ref int current) 
         {
             if(node != null)
             {
@@ -118,7 +118,6 @@ namespace lab12._4
                 current++;
                 ToArray(node.Right, array, ref current);
             }
-
         }
 
         public Tree<T> ToSearchTree(Tree<T> tree)    //должно быть выделение памяти под новые элементы
@@ -136,53 +135,6 @@ namespace lab12._4
             }
             return this;
         }
-
-        //public Tree<T> AddNode(T data) 
-        //{
-        //    Node<T> node = root;
-        //    Node<T> current = null;
-        //    bool isExist = false;
-
-        //    while(node != null && !isExist)
-        //    {
-        //        current = node;
-        //        if(node.Data.CompareTo(data) == 0)
-        //        {
-        //            isExist = true;
-        //        }
-        //        else
-        //        {
-        //            if (node.Data.CompareTo(data) < 0)
-        //            {
-        //                node = node.Left;
-        //            }
-        //            else
-        //            {
-        //                node = node.Right;
-        //            }
-        //        }
-        //    }
-
-        //    //есть место
-        //    if(isExist)
-        //    {
-        //        return null;
-        //    }
-        //    count++;
-        //    Node<T> newNode = new Node<T>(data);
-        //    if (current.Data.CompareTo(data) < 0)
-        //    {
-        //        current.Left = newNode;
-        //        return this;
-        //    }
-        //    else
-        //    {
-        //        current.Right = newNode;
-        //        return this;
-        //    }
-        //    //node = newNode;
-        //    //return this;
-        //}
 
         public bool AddNode(T data)
         {

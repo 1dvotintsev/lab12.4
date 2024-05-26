@@ -51,6 +51,9 @@ namespace lab12._4
                         Console.WriteLine("6) Удалить коллекцию");
                         Console.WriteLine("7) Распечатать перебором");
                         Console.WriteLine("8) Создать клон через foreach (повторяющиеся элементы не будут учитываться, конечный результат - дерево поиска)");
+                        Console.WriteLine("9) Проверка метода Contains");
+                        Console.WriteLine("10) Трансформировать в массив и распечатать");
+                        Console.WriteLine("11) Очистить коллекцию");
 
                         answer = ChooseAnswer(1, 8);
                         switch (answer)
@@ -113,9 +116,38 @@ namespace lab12._4
                                 MyCollection<Emoji> newCollection = new MyCollection<Emoji>(MyCollection<Emoji>.collections[currentTree - 1]);
                                 Console.WriteLine("Клон создан");
                                 break;
+                            case 9:                               
+                                Console.Clear();
+                                Console.WriteLine("Введите имя объекта для поиска:");
+                                string name_ = Console.ReadLine();
+                                Emoji target_ = new Emoji();
+                                target_.RandomInit();
+                                target_.Name = name_;
+                                if (MyCollection<Emoji>.collections[currentTree - 1].Contains(target_))
+                                {
+                                    Console.WriteLine("Элемент с таким именем есть");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Элемента с таким именем нет");
+                                }
+                                break;
+                            case 10:
+                                Console.Clear();
+                                Emoji[] array = new Emoji[MyCollection<Emoji>.collections[currentTree - 1].Count];
+                                MyCollection<Emoji>.collections[currentTree - 1].CopyTo(array, 0);
+                                foreach(var item in array)
+                                {
+                                    Console.WriteLine(item);
+                                }
+                                break;
+                            case 11:
+                                Console.Clear();
+                                MyCollection<Emoji>.collections[currentTree - 1].Clear();
+                                Console.WriteLine("Коллекция очищена от элементов");
+                                break;
 
                             default: break;
-
                         }
                     }
                     else
